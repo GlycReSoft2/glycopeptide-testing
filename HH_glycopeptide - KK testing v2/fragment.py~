@@ -1,0 +1,21 @@
+class Fragment:
+    """ Fragment from glycopeptide """
+    def __init__(self, type, pos, mod_dict, mass):
+	self.type = type
+	self.mass = mass
+	self.pos = pos
+	self.mod_dict = mod_dict
+
+    def getMass(self):
+	return self.mass
+
+    def getModification(self):
+	for mod_name, num in self.mod_dict:
+	    yield [mod_name, num]
+
+    def getFragmentName(self):
+	"""
+	   Connect the information into string.
+	"""
+
+

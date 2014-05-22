@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{a12f05fc-405c-4518-895d-655a3c7968af}</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>Score_results.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>HH_glycopeptide</Name>
+    <RootNamespace>HH_glycopeptide</RootNamespace>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments>test-data-kk.csv sample_glycosites.txt</CommandLineArguments>
+    <InterpreterPath />
+    <InterpreterArguments />
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="fragment.py" />
+    <Compile Include="HH_glycopeptide_KK.py" />
+    <Compile Include="modification.py" />
+    <Compile Include="composition.py" />
+    <Compile Include="merge_replicates.py" />
+    <Compile Include="module1_Ken_KK.py" />
+    <Compile Include="Module4.py" />
+    <Compile Include="parse_yaml.py" />
+    <Compile Include="Score_results.py" />
+    <Compile Include="sequencespace.py" />
+    <Compile Include="stub_glycopeptides.py" />
+    <Compile Include="test.py" />
+    <Compile Include="residue.py" />
+    <Compile Include="sequence.py" />
+    <Compile Include="HH_glycopeptide.py" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+</Project>
