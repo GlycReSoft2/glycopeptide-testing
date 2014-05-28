@@ -1,3 +1,4 @@
+# Not used?
 from composition import Composition
 
 mod_table = {
@@ -13,7 +14,6 @@ class Modification:
         self.name = mod_name
         self.position = mod_pos
         self.number = mod_num
-        global mod_table
         key = mod_table.get(mod_name)
         if key == None:
             self.mass = mass

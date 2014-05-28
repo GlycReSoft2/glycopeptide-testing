@@ -22,11 +22,14 @@ class Composition:
 
     def __init__(self, str):
         ## Needs update to support general expression
+        # This pattern will match an uppercase character followed by 0 or more
+        # lowercase characters denoting the element/group, followed by 0 or more
+        # digits denoting the quantity of the entity (defaults to 1 if no number is present)
         compo_pattern = re.compile(r'([A-Z][a-z]*)(\d*)')
         self.dict = {}
         self.mass = 0.0
         self.compo = str
-        global component
+        
         for match in compo_pattern.findall(str):
             count = 0
             if match[1] == '':

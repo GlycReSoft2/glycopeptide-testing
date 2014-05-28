@@ -37,8 +37,8 @@ class Fragment:
 
     def getFragmentName(self):
         """
-	       Connect the information into string.
-	    """
+           Connect the information into string.
+        """
         fragment_name = []
         fragment_name.append(self.type)
         fragment_name.append(str(self.pos+1))

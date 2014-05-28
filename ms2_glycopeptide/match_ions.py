@@ -4,6 +4,7 @@ import yaml
 import csv
 import math
 import ast
+import json
 
 Carbon = 12.00000
 Hydrogen = 1.0078250350
@@ -202,17 +203,16 @@ def MergeRows(SourceData):
 	return MergedList
 			
 
-def match_frags():
+def match_frags(theo_fragment_file, yaml_data):
+	'''
+	:param theo_fragment_file: path to file containing all theoretical peptides
+	:param yaml_data: path to yaml file from earlier MS1 analysis
+	'''
 	
-	print ("input gly1 results with theoretical frags")
-	filename = raw_input()
 	#filename = "Transferrin-ions2.csv"
-	f_csv = csv.DictReader(open(filename))
-
-	print("enter data filename")
-	datafile = raw_input()
+	f_csv = csv.DictReader(open(theo_fragment_file))
 	#datafile = "KK_20130630_007_group_ms2.yaml"
-	stream = open(datafile,'r')
+	stream = open(yaml_data,'r')
 	data = []
 	data.append(yaml.load(stream))
 
@@ -247,7 +247,7 @@ def match_frags():
 
 					oxoniums =[]
 					for ox_ion in Oxonium_ions:
-						for ob_ions in real_ions:						
+						for ob_ions in real_ions:
 							oxonium_ppm = (((ob_ions+Proton) - ox_ion)/(ob_ions+Proton))
 							if math.fabs(oxonium_ppm) <= ms2_tolerance:
 								oxoniums.append({"ion":(ob_ions+Proton),"ppm_error":oxonium_ppm,"key":ox_ion})
@@ -257,7 +257,6 @@ def match_frags():
 					#oxo_found = len(oxoniums)
 
 					#checking for b and y ions and ions with HexNAc:
-					
 					b_ions = ast.literal_eval(lines['bare_b_ions'])
 					b_len = float(len(b_ions))
 					#print "\n, b ions:"
@@ -382,4 +381,6 @@ def match_frags():
 	f.close()
 	
 
-match_frags()
+if __name__ == '__main__':
+	import sys
+	match_frags(sys.argv[1], sys.argv[2])

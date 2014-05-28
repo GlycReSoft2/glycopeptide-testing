@@ -45,7 +45,7 @@ class SequenceSpace:
         ## Get the candidate sites for all modification
         for mod in self.modifications:
             if mod.position != -1: # The position specified.
-                ix_bound.append((mod.position,)) # One element tuple
+                ix_bound.append([mod.position]) # Single element list
             elif mod.target!= '': # The target specified.
                 ix_list = [ix for ix in range(self.seq.length) if self.seq.at(ix)[0].name == mod.target]
                 ## temp_list has format like [(1,2,3), (2,3,4)]
@@ -78,7 +78,7 @@ class SequenceSpace:
             common_sites = set().union(*ix_sites)
             glyco_sites = set(self.candidate_sites).difference(common_sites)
             #glyco_num = glyco_compo['HexNAc']
-            if len(common_sites) != sum(map(len,ix_sites)) | (num_sites > len(glyco_sites)): # Invalid config.
+            if len(common_sites) != sum(map(len,ix_sites)) or (num_sites > len(glyco_sites)): # Invalid config.
                 indices[i] += 1
                 continue
 

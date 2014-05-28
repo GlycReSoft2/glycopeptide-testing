@@ -64,7 +64,6 @@ class Residue:
         #    self.mass = 0.0
 
     def byName(self, name):
-        global residue_table
         self.compo = residue_table.get(name)
         self.name = name
         if self.compo != None:
@@ -73,7 +72,6 @@ class Residue:
             self.mass = 0.0
 
     def bySymbol(self, symbol):
-        global residue_symbol
         name = residue_symbol[symbol]
         self.byName(name)
         self.symbol = symbol
