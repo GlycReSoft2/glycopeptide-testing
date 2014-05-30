@@ -1,12 +1,18 @@
-import csv
 import ast
+import csv
+import json
 import math
 import re
 
-def score():
-    print ("enter name of merged results file to score")
-    merged_results = raw_input ()
-    results = csv.DictReader(open(merged_results))
+def score(matched_ions_file, output_file = None):
+    '''
+    Scores observed fragment to theoretical ion pairings, eliminates ambiguity using tandem MS2 data
+    :param matched_ions_file: Path to file created by match_ions.py, matching theoretical ions to observed spectra
+    :param output_file: Path to file to write results to. Defaults to `matched_ions_file` + "_score"
+    '''
+    if output_file is None:
+        output_file = matched_ions_file + "_score"
+    results = csv.DictReader(open(matched_ions_file))
     scored_results = []
     
     for rows in results:
@@ -81,16 +87,20 @@ def score():
 
 
     keys = ["MS1_Score","Obs_Mass","Calc_mass","ppm_error","Peptide","Peptide_mod","Glycan","vol","glyco_sites","startAA","endAA","Seq_with_mod","Glycopeptide_identifier","Oxonium_ions","bare_b_ions","total_b_ions_possible","bare_y_ions","total_y_ions_possible","b_ions_with_HexNAc","y_ions_with_HexNAc","b_ion_coverage","y_ion_coverage","Stub_ions","%b_ion_with_HexNAc_coverage","%y_ion_with_HexNAc_coverage","%percent_b-ion_coverage","%percent_y-ion_coverage","#_of_stubs_found","MS2_score"]
-    print("enter output filename")
-    filename = raw_input()
-    f = open(filename,'wb')
+
+    f = open(output_file + ".csv",'wb')
     dict_writer = csv.DictWriter(f,keys)
     dict_writer.writer.writerow(keys)
     dict_writer.writerows(scored_results)
     f.close()
 
+    f = open(output_file + '.json', 'wb')
+    json.dump(scored_results, f)
+    f.close()
+
+    return scored_results
 
 
-#    for data in real_rows:
- #       print (data["b_ions_with_HexNAc"]), "\n"
-score()
+if __name__ == '__main__':
+    import sys
+    score(sys.argv[1])

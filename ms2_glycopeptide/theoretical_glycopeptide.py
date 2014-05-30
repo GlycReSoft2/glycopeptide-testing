@@ -76,7 +76,7 @@ class TheoreticalIonFragment(object):
 
 def main(result_file, site_file, output_file = None):
     if output_file is None:
-        output_file = os.path.splitext(result_file)[0] + '_out'
+        output_file = os.path.splitext(result_file)[0] + '_theoretical_ions'
 
     print("Reading %s" % result_file)
     compo_dict = csv.DictReader(open(result_file, "r"), delimiter=",")
@@ -188,6 +188,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Generate all theoretical ions from input peptides and possible glycosylation sites")
     parser.add_argument("-f", "--fragment-file", type = str, help="The csv file produced by Glycresoft, describing a peptide")
     parser.add_argument("-s", "--site-file", type = str, help = "A file listing each position along the peptide where ")
-    parser.add_argument("-o", "--output-file", type=str, default = None, help = "The name of the file to output results to. Defaults to `fragment-file`_out")
+    parser.add_argument("-o", "--output-file", type=str, default = None, help = "The name of the file to output results to. Defaults to `fragment-file`_theoretical_ions")
     args = parser.parse_args()
     main(result_file = args.fragment_file, site_file = args.site_file, output_file = args.output_file)

@@ -1,10 +1,12 @@
 #!usr/bin/python
 
-import yaml
-import csv
-import math
 import ast
+import csv
 import json
+import math
+import os
+
+import yaml
 
 Carbon = 12.00000
 Hydrogen = 1.0078250350
@@ -203,12 +205,16 @@ def MergeRows(SourceData):
 	return MergedList
 			
 
-def match_frags(theo_fragment_file, yaml_data):
+def match_frags(theo_fragment_file, yaml_data, outfile = None):
 	'''
 	:param theo_fragment_file: path to file containing all theoretical peptides
 	:param yaml_data: path to yaml file from earlier MS1 analysis
+	:param outfile: path to the file to write output to. Defaults to theo_fragment_file + "_match_frags".
 	'''
 	
+	if outfile is None:
+		outfile = os.path.splitext(theo_fragment_file)[0] + '_match_frags'
+
 	#filename = "Transferrin-ions2.csv"
 	f_csv = csv.DictReader(open(theo_fragment_file))
 	#datafile = "KK_20130630_007_group_ms2.yaml"
@@ -372,14 +378,14 @@ def match_frags(theo_fragment_file, yaml_data):
 			print ("l3", i['b_ion_coverage'])
 
 	keys = ["MS1_Score","Obs_Mass","Calc_mass","ppm_error","Peptide","Peptide_mod","Glycan","vol","glyco_sites","startAA","endAA","Seq_with_mod","Glycopeptide_identifier","Oxonium_ions","bare_b_ions","possible_b_ions_HexNAc","total_b_ions","bare_y_ions","possible_y_ions_HexNAc","total_y_ions","b_ions_with_HexNAc","y_ions_with_HexNAc","b_ion_coverage","y_ion_coverage","Stub_ions"]
-	print("enter output filename")
-	filename = raw_input()
-	f = open(filename,'wb')
+	f = open(outfile + '.csv','wb')
 	dict_writer = csv.DictWriter(f,keys)
 	dict_writer.writer.writerow(keys)
 	dict_writer.writerows(merged_results)
 	f.close()
-	
+	f = open(outfile + '.json','wb')
+	json.dumps(merged_results, f)
+	f.close()
 
 if __name__ == '__main__':
 	import sys

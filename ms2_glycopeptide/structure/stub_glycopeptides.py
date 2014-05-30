@@ -45,7 +45,8 @@ class stubs:
         while True:
             self.begin, self.end = self.pep_seq.find('('), self.pep_seq.find(')')
             if self.begin != -1 and self.end != -1:
-                self.pep_seq = self.pep_seq[:self.begin] + self.pep_seq[self.end+1:]    ###add this to capture the carbamidomethyls--> + " " + peptide[begin+1:end]
+                # add this to capture the carbamidomethyls--> + " " + peptide[begin+1:end]
+                self.pep_seq = self.pep_seq[:self.begin] + self.pep_seq[self.end+1:] 
             else:
                 break
          
